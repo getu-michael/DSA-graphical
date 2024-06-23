@@ -6,6 +6,7 @@ import { useState } from "react";
 
 
 function App (){
+  let arr=[]
   const algoNames = ["Selection Sort",
     "Bubble Sort",
     "Insertion Sort",
@@ -13,25 +14,27 @@ function App (){
     "Quick Sort"]
   const [list, setList] = useState('');
   let store = (event)=>{
-    setList((p)=> p + event.target.value)
-  }
+                console.log(event.target.value );
+                setList( event.target.value)
+              }
 
-let populate = ()=>{
- {list.map((l,i)=> {
- <p key={i}>l</p>
- console.log(l);})}
-  }
-
+  let populate = ()=> {
+                  arr = list.split(',')
+                  console.log(arr);
+                  {arr.map((e,i)=><Block val={e} index={i} key={i}/>)} 
+                }
+  let sort = ()=>{}
   return (<>
-    <InputList fun={store}/><br />
+    <InputList fun={store} listData={list}/><br />
     <OptionSelect algorithms = {algoNames}/> <br />
     <div>
-      <button onClick={store}>Populate</button><br />
-      <button onClick={populate}>Sort</button>
+      <button onClick={populate} >Populate</button><br />
+      <button onClick={sort}>Sort</button>
+      
     </div>
     <div className="block-container">
-        <Block val={1} index={0}/>
-        <Block val={10} index={1}/>
+        {arr.map((e,i)=><Block val={e} index={i} key={i}/>)} 
+        <Block val={'TE'} index={1}/>
     </div>
   </>);
 }
