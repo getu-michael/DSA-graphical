@@ -1,15 +1,15 @@
-import Block from "./commponents/block/Block";
+//import Block from "./commponents/block/Block";
 import OptionSelect from "./commponents/optionSelect/OptionSelect"
-import InputList from "./commponents/input/InputList";
+//import InputList from "./commponents/input/InputList";
 import SortBtn from "./commponents/sortBtn/SortBtn";
+import Bar from "./commponents/bar/Bar";
 
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 
 
 function App (){
 
-  let arr=[]
+  const [arr, setArr] = useState([119,425,321,69,92,263,758,604,75])
   const algoNames = ["Selection Sort",
                     "Bubble Sort",
                     "Insertion Sort",
@@ -17,6 +17,13 @@ function App (){
                     "Quick Sort"]
   const [list, setList] = useState('');
   const [selected, setSelected] = useState('none');
+
+  let fillArray = (()=>{
+    for (let i = 0; i < 50; i++) {
+      let num=(Math.random()*1000)+10
+      setArr((prv)=>{prv.push(num)})
+    }
+  });
 
 // stores the given input string value from the InputList component to the list state.
   let storeList = (event)=>{
@@ -28,21 +35,38 @@ function App (){
                         setSelected(event.target.value)
                         console.log(event.target.value);
                       }
-  let populate = ()=> {
-                  arr = list.split(',')
-                  console.log(arr);
-                  <Block list={arr}/>
-              
-                }
- 
+  let BubbleSort = ()=>{
+    let arrayList = arr
+    let temp
+    for(let i=0;i<arrayList.length-1;i++){
+      for(let j=i+1;j<arrayList.length;j++){
+        if(arrayList[i]>arrayList[j]){
+          temp=arrayList[j]
+          arrayList[j]=arrayList[i]
+          arrayList[i]=temp
+        }
+          }
+    }
+    console.log(arrayList)
+
+  }
+
+  let sort = ()=> {               
+    if(selected=="Bubble Sort")
+      BubbleSort()  
+    console.log(arr , 'from populate fun');
+    // <Block list={arr}/>
+
+  }
+                
+
   return (<>
             
-            <InputList fun={storeList} listData={list}/><br />
             <OptionSelect algorithms = {algoNames} setSelectedValue={selectedAlgo}/> <br />
-            <button onClick={populate} >Populate</button><br />
+            <button onClick={sort} >Populate</button><br />
             <SortBtn listData={list} algoName={selected}/>
-            <Block list={arr}/>
-
+            <Bar list={arr}/>
+          
           </>);
 }
 export default App;
