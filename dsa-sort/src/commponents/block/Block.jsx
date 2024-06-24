@@ -1,9 +1,8 @@
 import './block.css'
 function Block(props){
-    const val = props.val;
-    const index = props.index;
+    const list = props.list;
     return (<>
-                <div className="block" key={index}>{val}</div>
+                {list.map((val,index)=> <div className="block" key={index}>{val}</div>)}
             </>);
 }
 export default Block;
