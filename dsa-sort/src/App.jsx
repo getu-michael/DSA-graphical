@@ -17,6 +17,7 @@ function App (){
       let num=Math.floor((Math.random()*1000)+10)
       let item = {val:num,color:"red"}
       arr.push(item)
+      //setArr([...arr,item])
     }
   });
 
